@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "@manishxninja/common-app": "^1.0.0",
+    "@manishxninja/common-app1": "^1.0.0",
+    "@manishxninja/common-app2": "^1.0.0",
     "@prisma/client": "^5.19.1",
     "@prisma/extension-accelerate": "^1.1.0",
     "hono": "^4.5.11"

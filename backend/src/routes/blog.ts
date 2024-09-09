@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { verify } from 'hono/jwt';
-import { blogChangeSchema, uploadSchema } from "@manishxninja/common-app";
+import { blogChangeSchema, uploadSchema } from "@manishxninja/common-app2";
 
 type Variables = {
   message: string

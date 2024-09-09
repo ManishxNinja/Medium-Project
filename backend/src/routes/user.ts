@@ -2,7 +2,8 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { sign,decode,verify } from 'hono/jwt';
-import { userSchema } from "@manishxninja/common-app";
+import { signUpSchema } from "@manishxninja/common-app2"
+import { signInSchema } from "@manishxninja/common-app2"
 
 
 export const userRouter = new Hono<{
@@ -21,7 +22,7 @@ userRouter.post('/signup', async (c) => {
 
   
     const body = await c.req.json();
-    const {success} = userSchema.safeParse(body);
+    const {success} = signUpSchema.safeParse(body);
 
 
     if(!success) {
@@ -40,6 +41,7 @@ userRouter.post('/signup', async (c) => {
         data: {
           email: body.email,
           password: body.password,
+          name: body.name
         },
       });
   
@@ -65,7 +67,7 @@ userRouter.post('/signin', async (c) => {
 	}).$extends(withAccelerate());
 
 	const body = await c.req.json();
-  const {success} = userSchema.safeParse(body);
+  const {success} = signInSchema.safeParse(body);
 
 
     if(!success) {

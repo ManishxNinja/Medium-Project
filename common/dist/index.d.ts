@@ -16,7 +16,20 @@ export declare const blogChangeSchema: zod.ZodObject<{
 }, {
     id: string;
 }>;
-export declare const userSchema: zod.ZodObject<{
+export declare const signUpSchema: zod.ZodObject<{
+    email: zod.ZodString;
+    password: zod.ZodString;
+    name: zod.ZodString;
+}, "strip", zod.ZodTypeAny, {
+    email: string;
+    password: string;
+    name: string;
+}, {
+    email: string;
+    password: string;
+    name: string;
+}>;
+export declare const signInSchema: zod.ZodObject<{
     email: zod.ZodString;
     password: zod.ZodString;
 }, "strip", zod.ZodTypeAny, {
@@ -26,6 +39,7 @@ export declare const userSchema: zod.ZodObject<{
     email: string;
     password: string;
 }>;
-export type signupType = zod.infer<typeof userSchema>;
+export type signupType = zod.infer<typeof signUpSchema>;
+export type signInType = zod.infer<typeof signInSchema>;
 export type UpdatePostType = zod.infer<typeof uploadSchema>;
 export type ChangePostType = zod.infer<typeof blogChangeSchema>;
