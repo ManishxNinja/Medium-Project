@@ -4,6 +4,7 @@ import {  useState } from "react";
 import axios from "axios";
 import { signupType } from "@manishxninja/common-app2";
 import { AxiosError } from "axios";
+import { Backend_URL } from "../config";
 
 export const Auth = ({ type1 }: {type1: "signup" | "signin"}) => {
     const navigate = useNavigate();
@@ -17,10 +18,10 @@ export const Auth = ({ type1 }: {type1: "signup" | "signin"}) => {
     async function  sendRequest() {
         
         try {
-            const response =  await axios.post(`https://backend.manishkaushik2243.workers.dev/api/v1/user/${type1 === "signup"? "signup":"signin"}`,postInput);
+            const response =  await axios.post(`${Backend_URL}/api/v1/user/${type1 === "signup"? "signup":"signin"}`,postInput);
             const jwt = response.data;
-            console.log(jwt);
-            localStorage.setItem("token", jwt);
+            console.log(jwt.jwt);
+            localStorage.setItem("token", jwt.jwt);
             navigate("/blogs");
                 
         } catch (error : unknown) {

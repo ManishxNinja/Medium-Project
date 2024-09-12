@@ -20,7 +20,7 @@ export const blogRouter = new Hono<{
 
   blogRouter.use('/*', async(c, next) => {
     const jwt = c.req.header('Authorization');
-  
+    console.log(jwt);
     if(!jwt) {
       c.status(401);
       return c.json({ error: "unauthorized"});
@@ -31,7 +31,7 @@ export const blogRouter = new Hono<{
     if(!user) {
       c.status(401);
       return c.json(
-        {error: "unauthorized"}
+        {error: "unauth"}
       );
     }
 
@@ -51,7 +51,18 @@ blogRouter.get('/bulk', async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const post = await prisma.post.findMany({});
+    const post = await prisma.post.findMany({
+      select: {
+        content: true,
+        title: true,
+        id: true,
+        author: {
+          select: {
+            name: true
+          }
+        }
+      }
+    });
     console.log(post);
     return c.json({
       post
@@ -68,6 +79,16 @@ blogRouter.get('/:id', async (c) => {
     const post = await prisma.post.findUnique({
         where: {
           id
+        },
+        select: {
+          title: true,
+          content: true,
+          id: true,
+          author: {
+            select: {
+              name: true
+            }
+          }
         }
     });
 
